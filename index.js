@@ -1,16 +1,14 @@
 require('dotenv').config();
-const express=require("express")
-const { required } = require("zod/mini")
-const app=express()
-const connectDB=require("./utils/db")
+const express = require('express');
+const app = express();
+const connectDB = require('./utils/db');
+const authRouter = require('./routes/auth.routes.js');
 
-app.get("/",(req,res)=>{
-    res.status(200).send("Backend is working")
-})
+app.use(express.json());
 
+app.use('/api/auth', authRouter);
 
-
-const port=3000
+const port = 3000;
 
 connectDB().then(() => {
   app.listen(port, () => {
