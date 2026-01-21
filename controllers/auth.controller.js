@@ -37,7 +37,7 @@ const register = async (req, res, next) => {
     });
   } catch (error) {
     // res.status(400).send({ msg: error });
-    next(error)
+    next(error);
   }
 };
 
@@ -68,4 +68,16 @@ const login = async (req, res, next) => {
   }
 };
 
-module.exports = { home, register, login };
+/* to send user data - user logic */
+
+const user = async (req, res) => {
+  try {
+    const userData = req.user;
+    console.log(userData);
+    return res.status(200).json({ msg: userData });
+  } catch (error) {
+    console.log(`error from the user route ${error}`);
+  }
+};
+
+module.exports = { home, register, login, user };

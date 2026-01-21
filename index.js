@@ -2,8 +2,8 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const connectDB = require('./utils/db');
-const authRouter = require('./routes/auth.routes.js');
-const contactRouter = require('./routes/contact.router.js')
+const authRouter = require('./routes/auth.route.js');
+const contactRouter = require('./routes/contact.route.js')
 const errorMiddleware = require('./middlewares/error.middleware.js');
 
 app.use(express.json());
