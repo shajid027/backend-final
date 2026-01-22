@@ -6,27 +6,31 @@ const contactForm = async (req, res) => {
     await Contact.create(response);
     return res.status(200).json({ message: 'message send successfully' });
   } catch (error) {
-    return res.status(500).json({ message: 'message not delivered' });
+    console.error('Database Save Error:', error);
+    return res.status(500).json({
+      message: 'message not delivered',
+      errorDetails: error.message,
+    });
   }
 };
 
 const getAllContacts = async (req, res) => {
   try {
-    const page = req.query.page * 1 || 1;   
-    const limit = req.query.limit * 1 || 5; 
+    const page = req.query.page * 1 || 1;
+    const limit = req.query.limit * 1 || 5;
     const skip = (page - 1) * limit;
 
     const contacts = await Contact.find().skip(skip).limit(limit);
 
     res.status(200).json({
-      status: "success",
+      status: 'success',
       page,
       results: contacts.length,
       data: contacts,
     });
   } catch (error) {
-    res.status(500).json({ message: "Could not fetch contacts" });
+    res.status(500).json({ message: 'Could not fetch contacts' });
   }
 };
 
-module.exports = contactForm
+module.exports = { contactForm, getAllContacts };
