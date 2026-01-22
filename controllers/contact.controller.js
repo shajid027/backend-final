@@ -6,8 +6,12 @@ const contactForm = async (req, res) => {
     await Contact.create(response);
     return res.status(200).json({ message: 'message send successfully' });
   } catch (error) {
-    return res.status(500).json({ message: 'message not delivered' });
+    console.error('Database Save Error:', error);
+    return res.status(500).json({
+      message: 'message not delivered',
+      errorDetails: error.message,
+    });
   }
 };
 
-module.exports = contactForm
+module.exports = contactForm ;
